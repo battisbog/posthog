@@ -1305,8 +1305,9 @@ def patchable(fn):
 
 class PersonOnEventsMode(str, Enum):
     DISABLED = "disabled"
-    V1_ENABLED = "v1_enabled"
-    V2_ENABLED = "v2_enabled"
+    PERSON_ID_NO_OVERRIDE_PROPERTIES_ON_EVENTS = "person_id_no_override_properties_on_events"
+    PERSON_ID_OVERRIDE_PROPERTIES_ON_EVENTS = "person_id_override_properties_on_events"
+    PERSON_ID_OVERRIDE_PROPERTIES_JOINED = "person_id_override_properties_joined"
 
 
 def label_for_team_id_to_track(team_id: int) -> str:
