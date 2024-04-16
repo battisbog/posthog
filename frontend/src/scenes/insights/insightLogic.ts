@@ -715,7 +715,7 @@ export const insightLogic = kea<insightLogicType>([
             }
 
             if (!props.doNotLoad) {
-                actions.loadInsight(props.dashboardItemId as InsightShortId)
+                //actions.loadInsight(props.dashboardItemId as InsightShortId)
             }
         },
     })),
