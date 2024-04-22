@@ -42,7 +42,6 @@ from posthog.caching.fetch_from_cache import (
 )
 from posthog.caching.insights_api import should_refresh_insight
 from posthog.constants import (
-    BREAKDOWN_VALUES_LIMIT,
     INSIGHT,
     INSIGHT_FUNNELS,
     INSIGHT_PATHS,
@@ -51,6 +50,7 @@ from posthog.constants import (
     TRENDS_STICKINESS,
     FunnelVizType,
 )
+from posthog.hogql.constants import BREAKDOWN_VALUES_LIMIT
 from posthog.decorators import cached_by_filters
 from posthog.helpers.multi_property_breakdown import (
     protect_old_clients_from_multi_property_default,
@@ -572,7 +572,7 @@ class InsightViewSet(
         ClickHouseBurstRateThrottle,
         ClickHouseSustainedRateThrottle,
     ]
-    renderer_classes = tuple(api_settings.DEFAULT_RENDERER_CLASSES) + (csvrenderers.CSVRenderer,)
+    renderer_classes = (*tuple(api_settings.DEFAULT_RENDERER_CLASSES), csvrenderers.CSVRenderer)
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["short_id", "created_by"]
     sharing_enabled_actions = ["retrieve", "list"]
@@ -838,12 +838,12 @@ Using the correct cache and enriching the response with dashboard specific confi
                 export = "{}/insights/{}/\n".format(SITE_URL, request.GET["export_insight_id"]).encode() + export
 
             response = HttpResponse(export)
-            response[
-                "Content-Disposition"
-            ] = 'attachment; filename="{name} ({date_from} {date_to}) from PostHog.csv"'.format(
-                name=slugify(request.GET.get("export_name", "export")),
-                date_from=filter.date_from.strftime("%Y-%m-%d -") if filter.date_from else "up until",
-                date_to=filter.date_to.strftime("%Y-%m-%d"),
+            response["Content-Disposition"] = (
+                'attachment; filename="{name} ({date_from} {date_to}) from PostHog.csv"'.format(
+                    name=slugify(request.GET.get("export_name", "export")),
+                    date_from=filter.date_from.strftime("%Y-%m-%d -") if filter.date_from else "up until",
+                    date_to=filter.date_to.strftime("%Y-%m-%d"),
+                )
             )
             return response
 

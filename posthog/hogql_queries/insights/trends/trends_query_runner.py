@@ -131,6 +131,7 @@ class TrendsQueryRunner(QueryRunner):
                     series=series.series,
                     timings=self.timings,
                     modifiers=self.modifiers,
+                    limit_context=self.limit_context,
                 )
                 query = query_builder.build_query()
 
@@ -175,6 +176,7 @@ class TrendsQueryRunner(QueryRunner):
                 series=series,
                 timings=self.timings,
                 modifiers=self.modifiers,
+                limit_context=self.limit_context,
             )
 
             query = query_builder.build_actors_query(time_frame=time_frame, breakdown_filter=str(breakdown_value))
@@ -224,6 +226,7 @@ class TrendsQueryRunner(QueryRunner):
                 series=series,
                 timings=self.timings,
                 modifiers=self.modifiers,
+                limit_context=self.limit_context,
             )
 
             breakdown = query_builder._breakdown(is_actors_query=False)
@@ -355,7 +358,7 @@ class TrendsQueryRunner(QueryRunner):
             with self.timings.measure("apply_formula"):
                 res = self.apply_formula(self.query.trendsFilter.formula, res)
 
-        return TrendsQueryResponse(results=res, timings=timings, hogql=response_hogql)
+        return TrendsQueryResponse(results=res, timings=timings, hogql=response_hogql, modifiers=self.modifiers)
 
     def build_series_response(self, response: HogQLQueryResponse, series: SeriesWithExtras, series_count: int):
         if response.results is None:
