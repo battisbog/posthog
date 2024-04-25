@@ -47,9 +47,9 @@ function EmptyState({
 
 function AuthorizedUrlForm({ actionId, type }: AuthorizedUrlListProps): JSX.Element {
     const logic = authorizedUrlListLogic({ actionId: actionId ?? null, type })
-    const { isProposedUrlSubmitting } = useValues(logic)
+    const { isProposedUrlSubmitting, urlToEdit } = useValues(logic)
     const { cancelProposingUrl } = useActions(logic)
-    const { urlToEdit } = useValues(logic)
+
     return (
         <Form
             logic={authorizedUrlListLogic}
@@ -61,7 +61,7 @@ function AuthorizedUrlForm({ actionId, type }: AuthorizedUrlListProps): JSX.Elem
             <LemonField name="url">
                 <LemonInput
                     autoFocus
-                    value={urlToEdit}
+                    value={urlToEdit === 'https://' ? undefined : urlToEdit}
                     placeholder="Enter a URL or wildcard subdomain (e.g. https://*.posthog.com)"
                     data-attr="url-input"
                 />
