@@ -180,12 +180,17 @@ export const authorizedUrlListLogic = kea<authorizedUrlListLogicType>([
             )
         },
     })),
-    afterMount(({ actions }) => {
+    afterMount(({ actions, values }) => {
         actions.loadSuggestions()
+
+        // Set the proposed URL to the current 'urlToEdit' value when the logic is initialized
+        if (values.urlToEdit) {
+            actions.setProposedUrlValue('url', values.urlToEdit)
+        }
     }),
     forms(({ values, actions }) => ({
         proposedUrl: {
-            defaults: { url: '' } as ProposeNewUrlFormType,
+            defaults: { url: values.urlToEdit || '' } as ProposeNewUrlFormType, // Use 'urlToEdit' as the default URL
             errors: ({ url }) => ({
                 url: validateProposedUrl(url, values.authorizedUrls, values.onlyAllowDomains),
             }),

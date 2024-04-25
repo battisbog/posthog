@@ -49,6 +49,7 @@ function AuthorizedUrlForm({ actionId, type }: AuthorizedUrlListProps): JSX.Elem
     const logic = authorizedUrlListLogic({ actionId: actionId ?? null, type })
     const { isProposedUrlSubmitting } = useValues(logic)
     const { cancelProposingUrl } = useActions(logic)
+    const { urlToEdit } = useValues(logic)
     return (
         <Form
             logic={authorizedUrlListLogic}
@@ -60,6 +61,7 @@ function AuthorizedUrlForm({ actionId, type }: AuthorizedUrlListProps): JSX.Elem
             <LemonField name="url">
                 <LemonInput
                     autoFocus
+                    value={urlToEdit}
                     placeholder="Enter a URL or wildcard subdomain (e.g. https://*.posthog.com)"
                     data-attr="url-input"
                 />
@@ -97,7 +99,6 @@ export function AuthorizedUrlList({
         onlyAllowDomains,
     } = useValues(logic)
     const { addUrl, removeUrl, setSearchTerm, newUrl, setEditUrlIndex } = useActions(logic)
-
     return (
         <div>
             <div className="flex items-center mb-4 gap-2 justify-between">
