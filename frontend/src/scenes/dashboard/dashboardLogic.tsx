@@ -171,6 +171,7 @@ export const dashboardLogic = kea<dashboardLogicType>([
         setInitialLoadResponseBytes: (responseBytes: number) => ({ responseBytes }),
         abortQuery: (payload: { dashboardQueryId: string; queryId: string; queryStartTime: number }) => payload,
         abortAnyRunningQuery: true,
+        setStale: (stale: boolean) => ({ stale }),
     }),
 
     loaders(({ actions, props, values }) => ({
@@ -520,6 +521,12 @@ export const dashboardLogic = kea<dashboardLogicType>([
             null as number | 'new' | null,
             {
                 setTextTileId: (_, { textTileId }) => textTileId,
+            },
+        ],
+        stale: [
+            false,
+            {
+                setStale: (_, { stale }) => stale,
             },
         ],
     })),
