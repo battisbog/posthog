@@ -49,7 +49,6 @@ function AuthorizedUrlForm({ actionId, type }: AuthorizedUrlListProps): JSX.Elem
     const logic = authorizedUrlListLogic({ actionId: actionId ?? null, type })
     const { isProposedUrlSubmitting, urlToEdit } = useValues(logic)
     const { cancelProposingUrl } = useActions(logic)
-
     return (
         <Form
             logic={authorizedUrlListLogic}
@@ -99,6 +98,7 @@ export function AuthorizedUrlList({
         onlyAllowDomains,
     } = useValues(logic)
     const { addUrl, removeUrl, setSearchTerm, newUrl, setEditUrlIndex } = useActions(logic)
+
     return (
         <div>
             <div className="flex items-center mb-4 gap-2 justify-between">

@@ -185,7 +185,7 @@ export const authorizedUrlListLogic = kea<authorizedUrlListLogicType>([
     }),
     forms(({ values, actions }) => ({
         proposedUrl: {
-            defaults: { url: '' } as ProposeNewUrlFormType, // Use 'urlToEdit' as the default URL
+            defaults: { url: '' } as ProposeNewUrlFormType,
             errors: ({ url }) => ({
                 url: validateProposedUrl(url, values.authorizedUrls, values.onlyAllowDomains),
             }),
