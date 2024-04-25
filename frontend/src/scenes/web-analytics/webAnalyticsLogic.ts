@@ -429,6 +429,8 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                     }
                 }
 
+                const useSessionsTable = !!values.featureFlags[FEATURE_FLAGS.SESSION_TABLE_PROPERTY_FILTERS]
+
                 const allTiles: (WebDashboardTile | null)[] = [
                     {
                         tileId: TileId.OVERVIEW,
@@ -442,6 +444,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                             dateRange,
                             sampling,
                             compare,
+                            useSessionsTable,
                         },
                         insightProps: createInsightProps(TileId.OVERVIEW),
                         canOpenModal: false,
@@ -583,6 +586,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                                         sampling,
                                         doPathCleaning: isPathCleaningEnabled,
                                         limit: 10,
+                                        useSessionsTable,
                                     },
                                     embedded: false,
                                 },
@@ -606,6 +610,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                                         sampling,
                                         doPathCleaning: isPathCleaningEnabled,
                                         limit: 10,
+                                        useSessionsTable,
                                     },
                                     embedded: false,
                                 },
@@ -638,6 +643,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                                         dateRange,
                                         sampling,
                                         limit: 10,
+                                        useSessionsTable,
                                     },
                                 },
                                 insightProps: createInsightProps(TileId.SOURCES, SourceTab.CHANNEL),
@@ -663,6 +669,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                                         dateRange,
                                         sampling,
                                         limit: 10,
+                                        useSessionsTable,
                                     },
                                 },
                                 insightProps: createInsightProps(TileId.SOURCES, SourceTab.REFERRING_DOMAIN),
@@ -683,6 +690,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                                         dateRange,
                                         sampling,
                                         limit: 10,
+                                        useSessionsTable,
                                     },
                                 },
                                 insightProps: createInsightProps(TileId.SOURCES, SourceTab.UTM_SOURCE),
@@ -702,6 +710,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                                         dateRange,
                                         sampling,
                                         limit: 10,
+                                        useSessionsTable,
                                     },
                                 },
                                 insightProps: createInsightProps(TileId.SOURCES, SourceTab.UTM_MEDIUM),
@@ -721,6 +730,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                                         dateRange,
                                         sampling,
                                         limit: 10,
+                                        useSessionsTable,
                                     },
                                 },
                                 insightProps: createInsightProps(TileId.SOURCES, SourceTab.UTM_CAMPAIGN),
@@ -740,6 +750,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                                         dateRange,
                                         sampling,
                                         limit: 10,
+                                        useSessionsTable,
                                     },
                                 },
                                 insightProps: createInsightProps(TileId.SOURCES, SourceTab.UTM_CONTENT),
@@ -759,6 +770,7 @@ export const webAnalyticsLogic = kea<webAnalyticsLogicType>([
                                         dateRange,
                                         sampling,
                                         limit: 10,
+                                        useSessionsTable,
                                     },
                                 },
                                 insightProps: createInsightProps(TileId.SOURCES, SourceTab.UTM_TERM),
